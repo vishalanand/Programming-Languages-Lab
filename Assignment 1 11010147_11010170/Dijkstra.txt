@@ -1,0 +1,49 @@
+We can use the following functions to implement Dijkstra's algorithm in Haskell:
+    
+   dijkstra (graph, src):
+		This function takes input as the adjacency matrix and the source vertex, the cell i,j of adjacency matrix can have either
+    value as -1 or any non negative no. where -1 represents there is no edge from vertex i to j and a non negative entry represents there
+    is a vertex from i to j having weight as that written in the cell. The output of the function is a list representing the minimum weight
+    of the path to a vertex from the source.
+
+   initialize (graph, src):
+   		This function takes in input as the adjacency matrix and the source node and makes a list where each element represents a node of
+     the graph and has two values one is the minimum weight of the path to the vertex from the source found till now and other a boolean
+     value representing whether this is the actual minimum weight of the vertex or not ,i.e., true if the minimum weight is found , false
+     otherwise. The output list has the first value of the source node set to zero and infinity in case of all other nodes and the second boolean
+     value is set to false for all the nodes.
+
+   findmin (list) :
+               This function takes input as a list of type that was formed by the initialize function and finds the node that has it's boolean
+      value set to false ,i.e., whose actual minimum has not been confirmed yet and has the minimum weight assigned to it among all the nodes
+      whose boolean value is to false and thus output's that node.
+
+   update (list, graph, node):
+		This function takes input as the list of type mentioned earlier, the adjacency matrix and the node returned by the findmin function.
+      It copies the original list into a new list of same kind the elements whose boolean value is set to true in the old list are directly copied
+      in the new list, also the element corresponding to the node passed as an argument to this function is copied directly to the new list from the
+      old but the boolean value is set to true. The other nodes data is copied in the following manner:
+							if(the given node is directly connected to the node being copied)
+							{
+								if(weight of the node being copied from old list is greater than that of the
+								   sum of the weight of the given node plus the weight of the edge between them)
+								{
+									copy the node into the new list with the weight as sum of the weight of 
+									the given node plus the weight of the edge between them and boolean
+									value set to false.
+								}
+							}
+							else
+							{
+								copy as it is in the new list
+							}
+	The output of this function is the new updated list.
+
+
+	So, the dijkstra function will work in the following way:
+		1. Call initialize (graph, src)
+		2. findmin (list)
+		3. update (list, graph, node)
+		4. recurse step 2 and 3 till findmin function returns minimum
+		5. return the final list
+       

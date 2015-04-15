@@ -1,0 +1,23 @@
+import System.Environment
+ 
+main = print (start [1,2,3,0,0,4,0,0,0,0,0,0,6,0,0])
+
+start x = postorder x 0
+
+inorder x y | null x = []
+			| x!!y == 0 = []
+			| (2*y + 2) <= ((length x) - 1) = inorder x (2*y + 1) ++ [x!!y] ++ inorder x (2*y + 2)
+			| (2*y + 1) <= ((length x) - 1) = inorder x (2*y + 1) ++ [x!!y]
+			| otherwise = [x!!y]
+
+preorder x y | null x = []
+			| x!!y == 0 = []
+			| (2*y + 2) <= ((length x) - 1) = [x!!y] ++ preorder x (2*y + 1) ++ preorder x (2*y + 2)
+			| (2*y + 1) <= ((length x) - 1) = [x!!y] ++ preorder x (2*y + 1)
+			| otherwise = [x!!y] 
+
+postorder x y | null x = []
+			| x!!y == 0 = []
+			| (2*y + 2) <= ((length x) - 1) = postorder x (2*y + 1) ++ postorder x (2*y + 2) ++ [x!!y]
+			| (2*y + 1) <= ((length x) - 1) = postorder x (2*y + 1) ++ [x!!y]
+			| otherwise = [x!!y] 

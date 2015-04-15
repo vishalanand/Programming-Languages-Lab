@@ -1,0 +1,13 @@
+import System.Environment
+ 
+main = print (perfectPower 10000000)
+
+perfectPower x | x < 0 = "false"
+    		    | x == 0 = "true"
+			     | x == 1 = "true"
+			     | otherwise = check x 2 0
+			     
+check x y z | x < y = "false"
+		    | x == y && z >= 1 = "true"
+		    | check (x/y) y (z+1) == "true" = "true"
+		    | otherwise = check x (y+1) 0

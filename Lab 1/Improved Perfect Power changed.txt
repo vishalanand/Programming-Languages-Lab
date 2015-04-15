@@ -1,0 +1,21 @@
+import System.Environment
+ 
+main = print (perfectPower 10)
+
+perfectPower x | x < 0 = "false"
+				| x == 0 = "true"
+				| x == 1 = "true"
+				| otherwise = findmax x 2 0
+				
+findmax x y z | x > y = findmax x (y*2) (z+1)
+			  | x == y = check 2 x x 2 (z+1)
+			  | otherwise = check 2 x x 2 (z+1)
+			  
+check l h x y z | y > z = "false"
+			  | l > h = check 2 x x (y+1) z
+			  | x > power ((l+h) `div` 2) ((l+h) `div` 2) y = check (((l+h) `div` 2) + 1) h x y z
+			  | x < power ((l+h) `div` 2) ((l+h) `div` 2) y = check l (((l+h) `div` 2) - 1) x y z
+			  | otherwise = "true"
+			  
+power a x y | y == 1 = x
+		  | otherwise = power a (a*x) (y-1)

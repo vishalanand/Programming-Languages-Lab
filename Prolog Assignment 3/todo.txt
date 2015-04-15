@@ -1,0 +1,2 @@
+Take care if source=dest.
+Take care if source=via and similar cases.
